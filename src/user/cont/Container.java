@@ -43,8 +43,8 @@ public class Container {
         arr = new_arr;
         size+=1;
     }
-    public void push(int x, int pos){
-        if (pos>=0 && pos<size){
+    public boolean push(int x, int pos){
+        try{
             int[] new_arr = new int[size+1];
             for (int i = 0; i < pos; i++){
                 new_arr[i] = arr[i];
@@ -56,49 +56,45 @@ public class Container {
             }
             arr = new_arr;
             size+=1;
+            return true;
+        } catch (ArrayIndexOutOfBoundsException err) {
+            System.out.println(err);
+            return false;
         }
 
     }
-    public boolean pop(){
-        boolean result = false;
-        if (size>0){
-            int[] new_arr = new int[size-1];
-            result = true;
-            for (int i = 0; i<size-1; i++) {
-                new_arr[i]=arr[i];
+    public boolean pop() {
+        try {
+            int[] new_arr = new int[size - 1];
+            for (int i = 0; i < size - 1; i++) {
+                new_arr[i] = arr[i];
             }
             arr = new_arr;
-            size-=1;
+            size -= 1;
+            return true;
+        } catch (ArrayIndexOutOfBoundsException err) {
+            System.out.println(err);
+            return false;
         }
-        else {
-            System.out.println("There is no elements in the container.\n");
-        }
-        return result;
     }
-    public boolean erase(int pos){
+
+    public boolean erase(int pos) {
         boolean result = false;
-        if (size > 0)
-        {
-            if (pos>=0 && pos<size) {
-                int[] new_arr = new int[size-1];
-                for (int i = 0; i<pos; i++){
-                    new_arr[i] = arr[i];
-                }
-                for (int i = pos+1; i<size; i++){
-                    new_arr[i-1] = arr[i];
-                }
-                size-=1;
-                arr = new_arr;
-                result = true;
+        try {
+            int[] new_arr = new int[size - 1];
+            for (int i = 0; i < pos; i++) {
+                new_arr[i] = arr[i];
             }
-            else{
-                System.out.println("There is no such position in the container.\n");
+            for (int i = pos + 1; i < size; i++) {
+                new_arr[i - 1] = arr[i];
             }
+            size -= 1;
+            arr = new_arr;
+            return true;
+        } catch (ArrayIndexOutOfBoundsException err) {
+            System.out.println(err);
+            return false;
         }
-        else {
-            System.out.println("There is no elements in the container.\n");
-        }
-        return result;
     }
 
     @Override
